@@ -1,0 +1,9 @@
+services:
+  usermanagement-api:
+    build: .
+    container_name: usermanagement-api
+    ports:
+      - "8082:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+    restart: unless-stopped
