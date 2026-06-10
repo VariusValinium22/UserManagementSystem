@@ -1,0 +1,48 @@
+name: Build and Deploy to HomeLab
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build .NET API
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore
+        run: dotnet restore UserManagementApi/UserManagementApi.csproj
+
+      - name: Build
+        run: dotnet build UserManagementApi/UserManagementApi.csproj --no-restore -c Release
+
+  deploy:
+    name: Deploy to HomeLab
+    runs-on: self-hosted
+    needs: build
+
+    steps:
+      - name: Pull latest code
+        run: |
+          cd ~/DockerProjects/UserManagementSystem
+          git pull origin main
+
+      - name: Build and restart containers
+        run: |
+          cd ~/DockerProjects/UserManagementSystem
+          docker compose up -d --build
+
+      - name: Smoke test
+        run: |
+          sleep 5
+          curl -fsS http://localhost:8082/weatherforecast
