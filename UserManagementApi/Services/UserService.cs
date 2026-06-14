@@ -7,6 +7,7 @@ What is an interface?
                             hides the internal user collection from outside classes.
                             When you see 'private', think ENCAPSULATION!
 */
+// === C3 — Add the Class that implements the interface file 2 of 2 ==========================================
 
 using UserManagementApi.Models;
 

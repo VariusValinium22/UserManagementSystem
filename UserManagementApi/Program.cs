@@ -1,18 +1,31 @@
+// C4 — Add 4 lines of code. No deletions =====================================================
+// C4: Add namespace so Program.cs can reference IUserService / UserService
+using UserManagementApi.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+// C4: enable API controllers (UsersController.cs); register before Build()
+builder.Services.AddControllers();
+
+// C4: DI: register IUserService → UserService (one instance per HTTP request)
+builder.Services.AddScoped<IUserService, UserService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.MapOpenApi();   
 }
 
 app.UseHttpsRedirection();
+
+// C4: route incoming requests to controller actions (e.g. GET /api/users)
+app.MapControllers();
 
 var summaries = new[]
 {

@@ -11,12 +11,14 @@ Why do we use Interfaces?
         Allow multiple implementations - implement the interface in different classes using the same interface differently.
         Commonly used with DI - use an interface to inject dependencies instead of concrete classes.
 */
+// === C2 — Add Interface file 1 of 2 (IUserService) =====================================================================
+
 using UserManagementApi.Models;
 
 namespace UserManagementApi.Services;
 
 public interface IUserService
 {
-    List<User> GetAllUsers();               // the 'contract'
-    User? GetUserById(int id);              // the 'contract'
+    List<User> GetAllUsers();               // the 'contract': a method on the service to return a LIST of user instances as one object
+    User? GetUserById(int id);              // the 'contract': a method to return ONE User instance
 }
