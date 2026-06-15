@@ -14,6 +14,17 @@ builder.Services.AddControllers();
 // C4: DI: register IUserService → UserService (one instance per HTTP request)
 builder.Services.AddScoped<IUserService, UserService>();
 
+// Allow React dev server (Vite) to call this API from the browser
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +34,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 // C4: route incoming requests to controller actions (e.g. GET /api/users)
 app.MapControllers();

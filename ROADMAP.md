@@ -86,7 +86,7 @@ Build in chunks — stop and test in the browser after each chunk (unlike backen
 
 - [x] **6. `Scaffold Vite + React app`** (`user-management-frontend/`)
 - [x] **7. `App.jsx`** scaffold creates App.jsx (C6), customize App.jsx (C7).
-- [ ] **8. `hooks/useUsers.js`**
+- [x] **8. `hooks/useUsers.js`**
 - [ ] **9. `components/UserList.jsx`**
 - [ ] **10. `components/UserCard.jsx`**
 
