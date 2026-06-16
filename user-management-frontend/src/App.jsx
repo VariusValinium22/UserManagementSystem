@@ -1,16 +1,16 @@
 import './App.css'
 import { useUsers } from './hooks/useUsers'
+import UserList from './components/UserList'
 
-// temporarily: console.log(users) or show loading/error as text
 function App() {
-  const { users, loading, error } = useUsers();
-  console.log({users, loading, error}); // ← the test
+  const { users, loading, error } = useUsers()
+
   return (
     <>
       <h1>User Management</h1>
-      <p>…placeholder until UserList (C9)…</p>
+      <UserList users={users} loading={loading} error={error} />
     </>
   )
 }
 
-export default App
+export default App;
